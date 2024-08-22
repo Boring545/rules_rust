@@ -33,6 +33,9 @@ rust_library(
         "ioctl",
         "no_std",
     ] + select({
+        "@rules_rust//rust/platform:riscv64gc-unknown-none-elf": [
+            "errno",  #riscv64gc-unknown-none-elf
+        ],
         "@rules_rust//rust/platform:aarch64-unknown-linux-gnu": [
             "errno",  # aarch64-unknown-linux-gnu
         ],
