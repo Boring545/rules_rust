@@ -5,6 +5,8 @@ load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
 _BUILDIFIER_VERSION = "7.1.1"
 _BUILDIFIER_URL_TEMPLATE = "https://github.com/bazelbuild/buildtools/releases/download/v{version}/{bin}"
+_BUILDIFIER_URL_TEMPLATE_RISCV64 = "https://github.com/Boring545/buildtools/releases/download/v{version}/{bin}"
+
 _BUILDIFIER_INTEGRITY = {
     "buildifier-darwin-amd64": "sha256-d0YNlXr3oCi7GK223EP6ZLbgAGTkc+rINoq4pwOzp0M=",
     "buildifier-darwin-arm64": "sha256-yZD0sDsn1qDYb/6TAUcypZwYurDE86TMVjS9OxYp/OM=",
@@ -24,10 +26,17 @@ def crates_vendor_deps():
 
     for bin, integrity in _BUILDIFIER_INTEGRITY.items():
         repo = "cargo_bazel.{}".format(bin)
+        
+        # Choose URL template based on the bin value
+        if bin == "buildifier-linux-riscv64":
+            url_template = _BUILDIFIER_URL_TEMPLATE_RISCV64
+        else:
+            url_template = _BUILDIFIER_URL_TEMPLATE
+            
         maybe(
             http_file,
             name = repo,
-            urls = [_BUILDIFIER_URL_TEMPLATE.format(
+            urls = [url_template.format(
                 bin = bin,
                 version = _BUILDIFIER_VERSION,
             )],
