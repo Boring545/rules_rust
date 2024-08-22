@@ -10,6 +10,7 @@ _BUILDIFIER_INTEGRITY = {
     "buildifier-darwin-arm64": "sha256-yZD0sDsn1qDYb/6TAUcypZwYurDE86TMVjS9OxYp/OM=",
     "buildifier-linux-amd64": "sha256-VLfyzo8idhz60mRBbpEgVq6chkX1nrZYO4RrSGSh7oM=",
     "buildifier-linux-arm64": "sha256-HZrx9pVqQ5/KKHii+/dguXyl3wD2aeXRlTvrDEYHrHE=",
+    "buildifier-linux-riscv64": "sha256-Whpx7J4QsS9hIeJbsWrGDXgzNJ0mAbvnRLy93vmQ2y0=",
     "buildifier-windows-amd64.exe": "sha256-Mx2IPnyjbIu+KKHoUoqccRAvS+Yj+Tn6PSCk2PAEvqs=",
 }
 
@@ -53,7 +54,13 @@ def crates_vendor_deps_targets():
         constraint_values = ["@platforms//os:linux", "@platforms//cpu:arm64"],
         visibility = ["//visibility:public"],
     )
-
+    
+    native.config_setting(
+        name = "linux_riscv64",
+        constraint_values = ["@platforms//os:linux", "@platforms//cpu:riscv64"],
+        visibility = ["//visibility:public"],
+    )
+    
     native.config_setting(
         name = "macos_amd64",
         constraint_values = ["@platforms//os:macos", "@platforms//cpu:x86_64"],
@@ -77,6 +84,7 @@ def crates_vendor_deps_targets():
         actual = select({
             ":linux_amd64": "@cargo_bazel.buildifier-linux-amd64//file",
             ":linux_arm64": "@cargo_bazel.buildifier-linux-arm64//file",
+            ":linux_arm64": "@cargo_bazel.buildifier-linux-riscv64//file",
             ":macos_amd64": "@cargo_bazel.buildifier-darwin-amd64//file",
             ":macos_arm64": "@cargo_bazel.buildifier-darwin-arm64//file",
             ":windows": "@cargo_bazel.buildifier-windows-amd64.exe//file",
