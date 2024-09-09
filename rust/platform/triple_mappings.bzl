@@ -37,7 +37,7 @@ SUPPORTED_T2_PLATFORM_TRIPLES = [
     "powerpc-unknown-linux-gnu",
     "riscv32imc-unknown-none-elf",
     "riscv64gc-unknown-none-elf",
-    "riscv64-unknown-linux-gnu",
+    "riscv64gc-unknown-linux-gnu",
     "s390x-unknown-linux-gnu",
     "thumbv7em-none-eabi",
     "thumbv8m.main-none-eabi",

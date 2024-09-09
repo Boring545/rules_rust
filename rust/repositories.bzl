@@ -43,7 +43,7 @@ DEFAULT_TOOLCHAIN_TRIPLES = {
     "x86_64-pc-windows-msvc": "rust_windows_x86_64",
     "x86_64-unknown-freebsd": "rust_freebsd_x86_64",
     "x86_64-unknown-linux-gnu": "rust_linux_x86_64",
-    "riscv64gc-unknown-linux-elf": "rust_linux_riscv64",
+    "riscv64gc-unknown-linux-gnu": "rust_linux_riscv64",
 }
 
 def rules_rust_dependencies():
